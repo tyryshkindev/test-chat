@@ -1,0 +1,62 @@
+<script setup lang="ts">
+import ChatWindow from '@/components/Chat/ChatWindow.vue';
+</script>
+<template>
+  <ChatWindow />
+</template>
+
+<style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  color: #fff;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+ul,
+li,
+ol {
+  list-style-type: none;
+}
+
+button,
+input {
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+button::placeholder,
+input::placeholder {
+  color: inherit;
+}
+
+input::selection,
+textarea::selection {
+  background-color: rgba(132, 158, 250, 0.664);
+}
+
+html,
+body {
+  line-height: 1;
+  user-select: none;
+  overflow: hidden !important;
+  font-family: 'Gilroy', sans-serif;
+  width: 100%;
+  height: 100%;
+}
+
+.app {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+</style>
