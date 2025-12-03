@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChatWindow from '@/components/Chat/ChatWindow.vue';
+import ChatWindow from '@/components/GameChat/ChatWindow.vue';
 </script>
 <template>
   <ChatWindow />
@@ -49,7 +49,7 @@ body {
   line-height: 1;
   user-select: none;
   overflow: hidden !important;
-  font-family: 'Gilroy', sans-serif;
+  font-family: 'Montserrat', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   width: 100%;
   height: 100%;
 }
