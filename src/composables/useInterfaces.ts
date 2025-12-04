@@ -1,15 +1,15 @@
-import { reactive } from 'vue'
+import { reactive } from 'vue';
 export type InterfaceName =
 	| 'MainMenu'
 	| 'Hud'
 	| 'Notifications'
 	| 'Entrance'
-	| 'Chat' /* | "Radar"*/
+	| 'Chat'; /* | "Radar"*/
 
 interface InterfaceState {
-	visible: boolean
-	zIndex: number
-	data: Record<string, unknown>
+	visible: boolean;
+	zIndex: number;
+	data: Record<string, unknown>;
 }
 
 export const interfaces = reactive<Record<InterfaceName, InterfaceState>>({
@@ -89,14 +89,14 @@ export const interfaces = reactive<Record<InterfaceName, InterfaceState>>({
         zIndex: 1,
         data: {}
     },*/
-})
+});
 
 export function getInterfaceData(name: InterfaceName) {
-	return { ...interfaces[name].data }
+	return { ...interfaces[name].data };
 }
 
 export function getInterfaceParam(name: InterfaceName, key: string, defaultValue: unknown = null) {
-	return interfaces[name].data[key] !== undefined ? interfaces[name].data[key] : defaultValue
+	return interfaces[name].data[key] !== undefined ? interfaces[name].data[key] : defaultValue;
 }
 
 function startChatMockServer() {
@@ -111,14 +111,14 @@ function startChatMockServer() {
 					name: 'Server Bot',
 					id: 'srv-1',
 				},
-			})
+			});
 		}
 
-		const delay = Math.floor(Math.random() * 801) + 200
-		setTimeout(generate, delay)
-	}
+		const delay = Math.floor(Math.random() * 801) + 200;
+		setTimeout(generate, delay);
+	};
 
-	generate()
+	generate();
 }
 
-startChatMockServer()
+startChatMockServer();

@@ -23,4 +23,4 @@ export const roleplayCommands = [
 	'sell',
 	'quest',
 	'date',
-] as const
+] as const;
