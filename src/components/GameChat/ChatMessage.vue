@@ -30,19 +30,5 @@ const hasPrefix = computed(() => !!messageConfig?.prefix)
 </script>
 
 <style scoped lang="scss">
-.chat__message {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &-type {
-        padding: 2px 6px;
-        border-radius: 4px;
-        margin-right: 4px;
-    }
-
-    &-content {
-        font-size: 14px;
-    }
-}
+@use "@/assets/styles/GameChat/ChatMessage.scss" as chatMessage;
 </style>

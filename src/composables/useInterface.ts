@@ -1,4 +1,3 @@
-// import { events } from '@/data/events'
 import { computed } from 'vue'
 import { getInterfaceData, getInterfaceParam, type InterfaceName } from './useInterfaces'
 
