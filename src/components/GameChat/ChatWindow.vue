@@ -3,10 +3,10 @@
         <div ref="chatRef" class="chat__window-list" :class="{ 'chat__window-scrollable': isInputActive }">
             <ChatMessage v-for="chatMessage in chatMessages" :key="chatMessage.id"
                 :messageType="chatMessage.messageType" :messageContent="chatMessage.messageContent"
-                :messageAuthor="chatMessage.author" />
+                :messageAuthor="chatMessage.author" :tryResult="chatMessage.tryResult" />
         </div>
-        <ChatInput v-show="isInputActive" @sendMessage="sendMessage" @toggleInput="toggleInput"
-            :isInputActive="isInputActive" :currentLanguage="currentLanguage" />
+        <ChatInput v-show="isInputActive" @sendMessage="sendMessage" @sendCommand="sendCommand"
+            @toggleInput="toggleInput" :isInputActive="isInputActive" :currentLanguage="currentLanguage" />
     </div>
 </template>
 
@@ -18,7 +18,7 @@ import ChatMessage from "@/components/GameChat/ChatMessage.vue";
 import type { MessagePayload } from "@/types/chatMessages";
 import ChatInput from "@/components/GameChat/ChatInput.vue";
 
-const { param } = useInterface("Chat");
+const { param, sendEvent, events } = useInterface("Chat");
 
 const rawChatMessages = param("chatMessages", []);
 const rawCurrentLanguage = param("currentLanguage", "en");
@@ -50,8 +50,12 @@ watch(() => chatMessages.value.length, async () => {
 });
 
 const sendMessage = (message: string) => {
-    console.log(message);
+    sendEvent(events.CHAT_SEND_MESSAGE, message);
 };
+
+const sendCommand = (command: string, ...args: string[]) => {
+    sendEvent(events.CHAT_SEND_COMMAND, command, ...args);
+}
 
 const toggleInput = (newValue: boolean) => {
     if (isInputActive.value === newValue) return;
@@ -62,6 +66,7 @@ const toggleInput = (newValue: boolean) => {
 }
 
 onKeyStroke(['F6', 't', 'T', 'е', 'Е'], (event: KeyboardEvent) => {
+    if (isInputActive.value) return
     event.preventDefault();
     isInputActive.value = true
 });

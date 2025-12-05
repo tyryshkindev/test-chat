@@ -2,14 +2,24 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	gap: 5px;
 
 	&-type {
 		padding: 2px 6px;
 		border-radius: 4px;
-		margin-right: 4px;
 	}
 
 	&-content {
 		font-size: 14px;
+	}
+	&-try {
+		padding: 4px 8px;
+		border-radius: 4px;
+		&--success {
+			background-color: #559c34;
+		}
+		&--fail {
+			background-color: #ff4343;
+		}
 	}
 }

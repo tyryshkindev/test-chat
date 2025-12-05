@@ -7,7 +7,8 @@
 
         <div class="commands__list">
             <p v-for="(item, index) in filteredCommands" :key="item"
-                :class="{ 'commands__list-item': true, active: index === activeIndex }" @click="selectCommand(item)">
+                :class="{ 'commands__list-item': true, active: index === activeIndex }"
+                @click="selectCommand(item, true)">
                 /{{ item }}
             </p>
         </div>
@@ -20,13 +21,16 @@ import { roleplayCommands } from '@/config/roleplayCommands'
 import { onKeyStroke } from '@vueuse/core'
 
 const activeIndex = ref(-1)
+const COMMANDS_LIST = Object.keys(roleplayCommands)
+
 
 const props = defineProps<{
     searchQuery: string
 }>()
 
 const emit = defineEmits<{
-    (e: 'update:searchQuery', value: string): void
+    (e: 'update:searchQuery', value: string): void,
+    (e: 'update:commandsListLength', value: number): void
 }>()
 
 const isCommand = computed(() => props.searchQuery.startsWith('/'))
@@ -38,28 +42,31 @@ const formattedCommand = computed(() => {
 
 const filteredCommands = computed(() => {
     if (!isCommand.value) return []
-    if (formattedCommand.value === '') return roleplayCommands
-    return roleplayCommands
-        .filter(command => command.startsWith(formattedCommand.value))
+    if (formattedCommand.value === '') return COMMANDS_LIST
+    return COMMANDS_LIST
+        .filter(command => command.toLowerCase().startsWith(formattedCommand.value))
         .sort((a, b) => a.length - b.length)
 })
 
+const commandsListLength = computed(() => filteredCommands.value.length)
+
 watch(() => props.searchQuery, () => activeIndex.value = -1)
+watch(commandsListLength, newLength => emit('update:commandsListLength', newLength))
 
 onKeyStroke('Tab', (e) => {
-    if (!isCommand.value || !filteredCommands.value.length) return
+    if (!isCommand.value || !commandsListLength.value) return
     e.preventDefault()
     if (activeIndex.value === -1) return activeIndex.value = 0
     activeIndex.value =
-        activeIndex.value >= filteredCommands.value.length - 1
+        activeIndex.value >= commandsListLength.value - 1
             ? 0
             : activeIndex.value + 1
 })
 
 onKeyStroke('Enter', (e) => {
-    if (!isCommand.value || !filteredCommands.value.length || activeIndex.value === -1) return
+    if (!isCommand.value || !commandsListLength.value || activeIndex.value === -1) return
     e.preventDefault()
-    if (filteredCommands.value.length === 1) return selectCommand(filteredCommands.value[0] as string, true)
+    if (commandsListLength.value === 1) return selectCommand(filteredCommands.value[0] as string, true)
     if (formattedCommand.value === filteredCommands.value[activeIndex.value]) return selectCommand(filteredCommands.value[activeIndex.value] as string, true)
     selectCommand(filteredCommands.value[activeIndex.value] as string)
 })

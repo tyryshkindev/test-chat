@@ -1,0 +1,4 @@
+export const events = {
+	CHAT_SEND_MESSAGE: 'CHAT_SEND_MESSAGE',
+	CHAT_SEND_COMMAND: 'CHAT_SEND_COMMAND',
+} as const;

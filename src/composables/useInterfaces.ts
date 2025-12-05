@@ -1,15 +1,15 @@
-import { reactive } from 'vue'
+import { reactive } from 'vue';
 export type InterfaceName =
 	| 'MainMenu'
 	| 'Hud'
 	| 'Notifications'
 	| 'Entrance'
-	| 'Chat' /* | "Radar"*/
+	| 'Chat'; /* | "Radar"*/
 
 interface InterfaceState {
-	visible: boolean
-	zIndex: number
-	data: Record<string, unknown>
+	visible: boolean;
+	zIndex: number;
+	data: Record<string, unknown>;
 }
 
 export const interfaces = reactive<Record<InterfaceName, InterfaceState>>({
@@ -89,14 +89,24 @@ export const interfaces = reactive<Record<InterfaceName, InterfaceState>>({
         zIndex: 1,
         data: {}
     },*/
-})
+});
 
 export function getInterfaceData(name: InterfaceName) {
-	return { ...interfaces[name].data }
+	return { ...interfaces[name].data };
 }
 
 export function getInterfaceParam(name: InterfaceName, key: string, defaultValue: unknown = null) {
-	return interfaces[name].data[key] !== undefined ? interfaces[name].data[key] : defaultValue
+	return interfaces[name].data[key] !== undefined ? interfaces[name].data[key] : defaultValue;
+}
+
+export function clientEvent(e: string, ...a: unknown[]) {
+	console.log('send client event:', e, ...a);
+
+	// if (window.client?.sendEvent) window.client.sendEvent(e, ...a);
+}
+
+export function sendEvent(e: string, ...a: unknown[]) {
+	clientEvent(e, ...a);
 }
 
 function startChatMockServer() {
@@ -105,20 +115,21 @@ function startChatMockServer() {
 			// @ts-expect-error We are sure that chatMessages exists and is an array
 			interfaces.Chat.data.chatMessages.push({
 				messageContent: 'Mock message ' + Date.now(),
-				messageType: 'default',
+				messageType: 'ooc',
 				author: {
-					role: 'server',
-					name: 'Server Bot',
-					id: 'srv-1',
+					role: '',
+					name: 'Valerii_Tyryshkindev',
+					id: '777',
 				},
-			})
+				tryResult: false,
+			});
 		}
 
-		const delay = Math.floor(Math.random() * 801) + 200
-		setTimeout(generate, delay)
-	}
+		const delay = Math.floor(Math.random() * 801) + 200;
+		setTimeout(generate, delay);
+	};
 
-	generate()
+	generate();
 }
 
-startChatMockServer()
+startChatMockServer();

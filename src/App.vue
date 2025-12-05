@@ -2,7 +2,9 @@
 import ChatWindow from '@/components/GameChat/ChatWindow.vue';
 </script>
 <template>
-  <ChatWindow />
+  <div class="app">
+    <ChatWindow />
+  </div>
 </template>
 
 <style lang="scss">
@@ -55,7 +57,7 @@ body {
 }
 
 .app {
-  position: relative;
+  position: absolute;
   height: 100%;
   width: 100%;
 }

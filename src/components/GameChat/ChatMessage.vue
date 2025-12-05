@@ -4,9 +4,13 @@
             messageConfig?.prefix }}</span>
         <span class="chat__message-content" :style="{ color: messageConfig?.messageColor }">
             {{ props?.messageAuthor?.role ?? '' }}
-            {{ props?.messageAuthor?.name ?? '' }}
+            {{ props?.messageAuthor?.name?.split('_').join(' ') ?? '' }}
             {{ props?.messageAuthor?.id ? '(' + props?.messageAuthor?.id + ')' : '' }}
             {{ props.messageContent }}
+        </span>
+        <span v-if="messageType === 'try'"
+            :class="['chat__message-try', tryResult ? 'chat__message-try--success' : 'chat__message-try--fail']">
+            {{ tryResult ? 'Удачно' : 'Неудачно' }}
         </span>
     </div>
 </template>
@@ -20,13 +24,12 @@ import { computed } from 'vue';
 const props = defineProps<{
     messageType: keyof typeof messageTypes,
     messageContent?: string,
-    messageAuthor?: MessageAuthor
+    messageAuthor?: MessageAuthor,
+    tryResult?: boolean
 }>()
 const messageConfig = messageTypes[props.messageType]
-console.log(messageConfig);
 
 const hasPrefix = computed(() => !!messageConfig?.prefix)
-
 </script>
 
 <style scoped lang="scss">
