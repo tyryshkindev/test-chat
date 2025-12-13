@@ -1,48 +1,37 @@
 # test-chat
 
-This template should help get you started developing with Vue 3 in Vite.
+## Чат на Raknet + SAMP CEF
 
-## Recommended IDE Setup
+### Функционал
+Открытие чата: F6, Т англ. Е русс.  
+Отправка сообщения: Enter, клик по кнопке  
+Закрытие чата: Esc, клик вне чата  
+Подсказки для РП-команд: при написании / активируются подсказки. Навигация: TAB, выбор: Enter / клик по подсказке.  
+Адаптивность за счёт условных единиц (размера экрана а не пикселей)  
+Адаптация запросов к RakNet API согласно предоставленным примерам.  
+Деление на команды и простые сообщения: команды поддерживают принятие аргументов и их правильную обработку. Добавление новых команд и их параметров - src/config/roleplayCommands.ts.  
+Вариативность чатов, поддержка префиксов, РП комманд, установка цвета.  
+100% Lighthouse perfomace  
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+### Настройка проекта  
+Скопируйте данный репозиторий в свободную папку:  
+```bash
+git clone https://github.com/tyryshkindev/test-chat
 ```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
+Перейдите в директорию проекта: 
+```bash
+cd test-chat
 ```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
+Установите зависимости:  
+```bash
+npm i
+```
+Запустите проект:  
+```bash
 npm run build
+npx serve -s dist
 ```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+Откройте проект в браузере по адресу:  
+```bash
+localhost:3000
 ```
