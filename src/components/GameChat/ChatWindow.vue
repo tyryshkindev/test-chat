@@ -1,6 +1,6 @@
 <template>
     <div ref="windowRef" class="chat__window">
-        <div ref="chatRef" class="chat__window-list" :class="{ 'chat__window-scrollable': isInputActive }">
+        <div ref="chatRef" class="chat__window-list" :class="{ 'chat__window-list__active': isInputActive }">
             <ChatMessage v-for="chatMessage in chatMessages" :key="chatMessage.id"
                 :messageType="chatMessage.messageType" :messageContent="chatMessage.messageContent"
                 :messageAuthor="chatMessage.author" :tryResult="chatMessage.tryResult" />

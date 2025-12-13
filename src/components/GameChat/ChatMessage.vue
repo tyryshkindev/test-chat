@@ -16,8 +16,6 @@
 </template>
 
 <script setup lang="ts">
-
-
 import { messageTypes } from '@/config/chatMessage.ts';
 import type { MessageAuthor } from '@/types/chatMessages';
 import { computed } from 'vue';
