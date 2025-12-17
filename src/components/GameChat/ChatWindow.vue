@@ -40,7 +40,7 @@ const { sendEvent, onMessage } = useWebSocket(WEB_SOCKET_URL, {
 onMessage((data) => {
     if (data.eventName === 'onChatSendMessage' || data.eventName === 'onChatSendCommand') {
         updateData({
-            chatMessages: [...chatMessages.value, data]
+            chatMessages: [...chatMessages.value, data.payload]
         });
     } else if (data.eventName === 'onChatChangeKeyboardLayout') {
         updateData({
