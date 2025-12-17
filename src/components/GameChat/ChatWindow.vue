@@ -31,29 +31,22 @@ const WEB_SOCKET_URL = import.meta.env.VITE_WEB_SOCKET_URL
 const chatMessages = computed<MessagePayload[]>(() => rawChatMessages.value as MessagePayload[]);
 const currentLanguage = computed(() => rawCurrentLanguage.value as string);
 
-const { sendEvent, onOpen, onMessage } = useWebSocket(WEB_SOCKET_URL, {
+const { sendEvent, onMessage } = useWebSocket(WEB_SOCKET_URL, {
     autoReconnect: true,
     reconnectInterval: 5000,
     maxReconnectAttempts: 10
 });
 
-onOpen(() => {
-    sendEvent('onChatSendMessage', 'Hello!', {
-        id: 1,
-        messageContent: 'Hello!',
-        messageType: 'admin',
-        messageAuthor: {
-            id: 1,
-            name: 'Valerii_Tyryshkindev',
-            role: 'admin'
-        },
-    });
-});
-
 onMessage((data) => {
-    updateData({
-        chatMessages: [...chatMessages.value, data]
-    });
+    if (data.eventName === 'onChatSendMessage' || data.eventName === 'onChatSendCommand') {
+        updateData({
+            chatMessages: [...chatMessages.value, data]
+        });
+    } else if (data.eventName === 'onChatChangeKeyboardLayout') {
+        updateData({
+            currentLanguage: data.content
+        });
+    }
 });
 
 const { y, arrivedState } = useScroll(chatRef, {

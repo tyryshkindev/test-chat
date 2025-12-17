@@ -97,7 +97,6 @@ export function getInterfaceData(name: InterfaceName) {
 
 export function updateInterfaceData(name: InterfaceName, payload: Record<string, unknown>) {
 	interfaces[name].data = { ...interfaces[name].data, ...payload };
-	console.log(interfaces[name].data);
 }
 
 export function getInterfaceParam(name: InterfaceName, key: string, defaultValue: unknown = null) {
