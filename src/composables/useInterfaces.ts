@@ -95,6 +95,10 @@ export function getInterfaceData(name: InterfaceName) {
 	return { ...interfaces[name].data };
 }
 
+export function updateInterfaceData(name: InterfaceName, payload: Record<string, unknown>) {
+	interfaces[name].data = { ...interfaces[name].data, ...payload };
+}
+
 export function getInterfaceParam(name: InterfaceName, key: string, defaultValue: unknown = null) {
 	return interfaces[name].data[key] !== undefined ? interfaces[name].data[key] : defaultValue;
 }
@@ -108,28 +112,3 @@ export function clientEvent(e: string, ...a: unknown[]) {
 export function sendEvent(e: string, ...a: unknown[]) {
 	clientEvent(e, ...a);
 }
-
-function startChatMockServer() {
-	const generate = () => {
-		if (Math.random() > 0.5) {
-			// @ts-expect-error We are sure that chatMessages exists and is an array
-			interfaces.Chat.data.chatMessages.push({
-				messageContent: 'Mock message ' + Date.now(),
-				messageType: 'ooc',
-				author: {
-					role: '',
-					name: 'Valerii_Tyryshkindev',
-					id: '777',
-				},
-				tryResult: false,
-			});
-		}
-
-		const delay = Math.floor(Math.random() * 801) + 200;
-		setTimeout(generate, delay);
-	};
-
-	generate();
-}
-
-startChatMockServer();

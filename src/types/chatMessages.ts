@@ -4,7 +4,7 @@ export interface MessagePayload {
 	id: number;
 	messageContent: string;
 	messageType: keyof typeof messageTypes;
-	author: MessageAuthor;
+	messageAuthor: MessageAuthor;
 	tryResult?: boolean;
 }
 
